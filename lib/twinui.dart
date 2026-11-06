@@ -4,3 +4,4 @@
 library;
 
 export 'styled_widget.dart';
+export 'src/twinui_extras.dart';
