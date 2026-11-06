@@ -437,14 +437,14 @@ class _AnimatedBackgroundBlur extends ImplicitlyAnimatedWidget {
 }
 
 class _AnimatedBackgroundBlurState
-    extends ImplicitlyAnimatedWidgetState<_AnimatedBackgroundBlur> {
+    extends AnimatedWidgetBaseState<_AnimatedBackgroundBlur> {
   Tween<double>? _sigma;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _sigma = visitor(
       _sigma,
-      widget.opacity,
+      widget.sigma,
       (dynamic value) => Tween<double>(begin: value as double),
     ) as Tween<double>?;
   }
@@ -494,7 +494,7 @@ class _AnimatedOverflowBox extends ImplicitlyAnimatedWidget {
 }
 
 class _AnimatedOverflowBoxState
-    extends ImplicitlyAnimatedWidgetState<_AnimatedOverflowBox> {
+    extends AnimatedWidgetBaseState<_AnimatedOverflowBox> {
   Tween<double>? _minWidth;
   Tween<double>? _maxWidth;
   Tween<double>? _minHeight;

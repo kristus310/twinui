@@ -959,6 +959,7 @@ extension StyledWidget on Widget {
                     1.0,
                   ),
                   alignment: alignment,
+                  origin: origin,
                   transformHitTests: transformHitTests,
                   duration: animation.duration,
                   curve: animation.curve,
@@ -1051,7 +1052,7 @@ extension StyledWidget on Widget {
                 return _AnimatedOverflowBox(
                   alignment: alignment,
                   minWidth: minWidth,
-                  maxWidth: minWidth,
+                  maxWidth: maxWidth,
                   minHeight: minHeight,
                   maxHeight: maxHeight,
                   duration: animation.duration,
@@ -1064,7 +1065,7 @@ extension StyledWidget on Widget {
               key: key,
               alignment: alignment,
               minWidth: minWidth,
-              maxWidth: minWidth,
+              maxWidth: maxWidth,
               minHeight: minHeight,
               maxHeight: maxHeight,
               child: this,
@@ -1260,19 +1261,28 @@ extension StyledWidget on Widget {
   }) =>
       GestureDetector(
         key: key,
-        onTapDown: (TapDownDetails tapDownDetails) {
-          if (onTapDown != null) onTapDown(tapDownDetails);
-          if (onTapChange != null) onTapChange(true);
-        },
-        onTapCancel: () {
-          if (onTapCancel != null) onTapCancel();
-          if (onTapChange != null) onTapChange(false);
-        },
-        onTap: () {
-          if (onTap != null) onTap();
-          if (onTapChange != null) onTapChange(false);
-        },
+        onTapDown: (onTapDown != null || onTapChange != null)
+            ? (TapDownDetails tapDownDetails) {
+                onTapDown?.call(tapDownDetails);
+                onTapChange?.call(true);
+              }
+            : null,
+        onTapCancel: (onTapCancel != null || onTapChange != null)
+            ? () {
+                onTapCancel?.call();
+                onTapChange?.call(false);
+              }
+            : null,
+        onTap: (onTap != null || onTapChange != null)
+            ? () {
+                onTap?.call();
+                onTapChange?.call(false);
+              }
+            : null,
         onTapUp: onTapUp,
+        onSecondaryTapDown: onSecondaryTapDown,
+        onSecondaryTapUp: onSecondaryTapUp,
+        onSecondaryTapCancel: onSecondaryTapCancel,
         onDoubleTap: onDoubleTap,
         onLongPress: onLongPress,
         onLongPressStart: onLongPressStart,
