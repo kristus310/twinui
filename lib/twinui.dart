@@ -1,5 +1,6 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// twinui: chainable widget extensions for Flutter.
+///
+/// Fork of styled_widget (MIT). See UPSTREAM.md for provenance.
+library;
+
+export 'styled_widget.dart';
