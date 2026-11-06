@@ -35,6 +35,7 @@ The original code was imported unchanged in its own commit, so
   `onDoubleTapCancel`, `onLongPressDown`, `onLongPressCancel`,
   `supportedDevices`.
 - `TwinuiExtras`: `visibleIf()` and `onTap()` (own extensions).
+- `backgroundBlendMode()`: optional `color:` and `gradient:`, so it can work.
 
 ### Changed
 - Minimum versions are what is tested: Dart 3.13, Flutter 3.47.
@@ -43,8 +44,8 @@ The original code was imported unchanged in its own commit, so
   names are unchanged.
 
 ### Known limitations
-- `backgroundBlendMode()` asserts in debug mode (a blend mode needs a colour
-  or gradient). Use `decorated(backgroundBlendMode: ..., color: ...)`.
+- `backgroundBlendMode()` needs a `color:` or `gradient:` (Flutter requires
+  one); without it debug builds assert.
 - Animated `Styled.text` / `Styled.icon` support only a subset of the
   properties of `Text` / `Icon`.
 - Chained calls cannot be `const`.

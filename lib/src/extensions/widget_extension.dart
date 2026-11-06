@@ -374,6 +374,8 @@ extension StyledWidget on Widget {
   Widget backgroundBlendMode(
     BlendMode blendMode, {
     Key? key,
+    Color? color,
+    Gradient? gradient,
     bool animate = false,
   }) =>
       animate
@@ -381,7 +383,11 @@ extension StyledWidget on Widget {
               key: key,
               builder: (animation) {
                 return _AnimatedDecorationBox(
-                  decoration: BoxDecoration(backgroundBlendMode: blendMode),
+                  decoration: BoxDecoration(
+                    color: color,
+                    gradient: gradient,
+                    backgroundBlendMode: blendMode,
+                  ),
                   duration: animation.duration,
                   curve: animation.curve,
                   child: this,
@@ -390,7 +396,11 @@ extension StyledWidget on Widget {
             )
           : DecoratedBox(
               key: key,
-              decoration: BoxDecoration(backgroundBlendMode: blendMode),
+              decoration: BoxDecoration(
+                    color: color,
+                    gradient: gradient,
+                    backgroundBlendMode: blendMode,
+                  ),
               child: this,
             );
 

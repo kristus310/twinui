@@ -6,6 +6,7 @@ Widget _host(Widget w) =>
     Directionality(textDirection: TextDirection.ltr, child: w);
 
 void main() {
+  blendModeTests();
   group('padding', () {
     test('all', () {
       final w = const Text('x').padding(all: 16) as Padding;
@@ -110,6 +111,35 @@ void main() {
       await tester.pumpWidget(_host(
           const SizedBox(width: 10, height: 10).backgroundLinearGradient()));
       expect(tester.takeException(), isNotNull);
+    });
+  });
+}
+
+void blendModeTests() {
+  group('backgroundBlendMode with colour or gradient', () {
+    test('with a colour it builds one box with colour and blend mode', () {
+      final w = const SizedBox()
+          .backgroundBlendMode(BlendMode.multiply, color: Colors.red)
+          as DecoratedBox;
+      final d = w.decoration as BoxDecoration;
+      expect(d.color, Colors.red);
+      expect(d.backgroundBlendMode, BlendMode.multiply);
+    });
+
+    test('with a gradient it keeps the gradient', () {
+      const g = LinearGradient(colors: [Colors.red, Colors.blue]);
+      final w = const SizedBox()
+          .backgroundBlendMode(BlendMode.screen, gradient: g) as DecoratedBox;
+      expect((w.decoration as BoxDecoration).gradient, g);
+    });
+
+    testWidgets('animated version with a colour builds', (tester) async {
+      await tester.pumpWidget(_host(const SizedBox(width: 10, height: 10)
+          .backgroundBlendMode(BlendMode.multiply,
+              color: Colors.red, animate: true)
+          .animate(const Duration(milliseconds: 100), Curves.linear)));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
     });
   });
 }

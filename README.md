@@ -43,8 +43,9 @@ Commit the app's `pubspec.lock`.
   own `alignment`. Calling the extension on those types does not compile (a
   loud failure, never a silent one). Wrap with `Styled.widget(child: ...)` or
   use a different widget.
-- **`backgroundBlendMode()` alone asserts** in debug. Use
-  `decorated(backgroundBlendMode:, color:)`.
+- **`backgroundBlendMode()` needs a `color:` or `gradient:`** (Flutter
+  requires one for a blend mode to do anything). Without it, debug builds
+  assert.
 - Chained calls cannot be `const`, and they do not make the widget tree
   shallower; they only make the code read flatter.
 
