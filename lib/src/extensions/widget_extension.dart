@@ -669,6 +669,7 @@ extension StyledWidget on Widget {
   }) {
     final double offset = elevation / 2;
     final int colorOffset = (40 * curve).toInt();
+    int channel(double v) => (v * 255.0).round().clamp(0, 255).toInt();
     int adjustColor(int color, int colorOffset) {
       final int colorVal = color + colorOffset;
       if (colorVal > 255) {
@@ -685,15 +686,15 @@ extension StyledWidget on Widget {
         end: Alignment.bottomRight,
         colors: [
           Color.fromRGBO(
-            adjustColor(backgroundColor.red, colorOffset),
-            adjustColor(backgroundColor.green, colorOffset),
-            adjustColor(backgroundColor.blue, colorOffset),
+            adjustColor(channel(backgroundColor.r), colorOffset),
+            adjustColor(channel(backgroundColor.g), colorOffset),
+            adjustColor(channel(backgroundColor.b), colorOffset),
             1.0,
           ),
           Color.fromRGBO(
-            adjustColor(backgroundColor.red, -colorOffset),
-            adjustColor(backgroundColor.green, -colorOffset),
-            adjustColor(backgroundColor.blue, -colorOffset),
+            adjustColor(channel(backgroundColor.r), -colorOffset),
+            adjustColor(channel(backgroundColor.g), -colorOffset),
+            adjustColor(channel(backgroundColor.b), -colorOffset),
             1.0,
           ),
         ],
@@ -953,8 +954,8 @@ extension StyledWidget on Widget {
               builder: (animation) {
                 return _AnimatedTransform(
                   transform: Matrix4.diagonal3Values(
-                    x ?? all ?? 0,
-                    y ?? all ?? 0,
+                    x ?? all ?? 1.0,
+                    y ?? all ?? 1.0,
                     1.0,
                   ),
                   alignment: alignment,
@@ -968,7 +969,7 @@ extension StyledWidget on Widget {
           : Transform(
               key: key,
               transform:
-                  Matrix4.diagonal3Values(x ?? all ?? 0, y ?? all ?? 0, 1.0),
+                  Matrix4.diagonal3Values(x ?? all ?? 1.0, y ?? all ?? 1.0, 1.0),
               alignment: alignment,
               origin: origin,
               transformHitTests: transformHitTests,

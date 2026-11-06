@@ -67,7 +67,7 @@ extension StyledText<T extends Text> on T {
       ) as T;
     }
     return Text.rich(
-      this.textSpan!,
+      textSpan!,
       key: key ?? this.key,
       style: style ?? this.style,
       strutStyle: strutStyle ?? this.strutStyle,
