@@ -47,13 +47,11 @@ class _StyledAnimatedBuilder extends StatelessWidget {
 class _AnimatedDecorationBox extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   _AnimatedDecorationBox({
-    super.key,
     this.decoration,
     this.position = DecorationPosition.background,
     this.child,
     super.curve,
     required super.duration,
-    super.onEnd,
   })  : assert(decoration == null || decoration.debugAssertIsValid());
 
   /// The [child] contained by the container.
@@ -126,12 +124,10 @@ class _AnimatedDecorationBoxState
 class _AnimatedConstrainedBox extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   _AnimatedConstrainedBox({
-    super.key,
     this.constraints,
     this.child,
     super.curve,
     required super.duration,
-    super.onEnd,
   })  : assert(constraints == null || constraints.debugAssertIsValid());
 
   /// The [child] contained by the container.
@@ -209,7 +205,6 @@ class _AnimatedTransform extends ImplicitlyAnimatedWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   const _AnimatedTransform({
-    super.key,
     this.transform,
     this.origin,
     this.alignment,
@@ -310,7 +305,6 @@ class _AnimatedTransformState
 class _AnimatedClipRRect extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   const _AnimatedClipRRect({
-    super.key,
     this.topLeft,
     this.topRight,
     this.bottomLeft,
@@ -320,7 +314,6 @@ class _AnimatedClipRRect extends ImplicitlyAnimatedWidget {
     this.child,
     super.curve,
     required super.duration,
-    super.onEnd,
   });
 
   /// The [child] contained by the container.
@@ -411,12 +404,10 @@ class _AnimatedBackgroundBlur extends ImplicitlyAnimatedWidget {
   /// The [opacity] argument must not be null and must be between 0.0 and 1.0,
   /// inclusive. The [curve] and [duration] arguments must not be null.
   const _AnimatedBackgroundBlur({
-    super.key,
     this.child,
     required this.sigma,
     super.curve,
     required super.duration,
-    super.onEnd,
   })  : assert(sigma >= 0.0);
 
   /// The widget below this widget in the tree.
@@ -467,7 +458,6 @@ class _AnimatedOverflowBox extends ImplicitlyAnimatedWidget {
   /// The [opacity] argument must not be null and must be between 0.0 and 1.0,
   /// inclusive. The [curve] and [duration] arguments must not be null.
   const _AnimatedOverflowBox({
-    super.key,
     this.child,
     this.minWidth,
     this.maxWidth,
@@ -476,7 +466,6 @@ class _AnimatedOverflowBox extends ImplicitlyAnimatedWidget {
     this.alignment,
     super.curve,
     required super.duration,
-    super.onEnd,
   });
 
   /// The widget below this widget in the tree.
