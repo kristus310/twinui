@@ -1,31 +1,15 @@
 part of '../styled_widget.dart';
 
-// TODO: why extend icon
+// Extends Icon so that Styled.icon(animate: true) still returns an Icon and
+// all Icon extensions (iconSize(), iconColor()) keep working on it.
 class _StyledAnimatedIconContainer extends Icon {
-  @override
-  final IconData? icon;
-  @override
-  final double? size;
-  @override
-  final Color? color;
-  @override
-  final String? semanticLabel;
-  @override
-  final TextDirection? textDirection;
-
   const _StyledAnimatedIconContainer(
-    this.icon, {
-    this.color,
-    this.semanticLabel,
-    this.size,
-    this.textDirection,
-  }) : super(
-          icon,
-          color: color,
-          semanticLabel: semanticLabel,
-          size: size,
-          textDirection: textDirection,
-        );
+    super.icon, {
+    super.color,
+    super.semanticLabel,
+    super.size,
+    super.textDirection,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +18,6 @@ class _StyledAnimatedIconContainer extends Icon {
     if (animation == null) {
       return super.build(context);
     }
-    // assert(
-    //     animation != null, 'You can`t animate without specifying an animation');
     return _AnimatedIcon(
       icon,
       duration: animation.duration,

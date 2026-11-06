@@ -33,7 +33,9 @@ extension StyledText<T extends Text> on T {
         semanticsLabel: semanticsLabel ?? this.semanticsLabel,
         softWrap: softWrap ?? this.softWrap,
         textDirection: textDirection ?? this.textDirection,
-        textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+        textScaleFactor: textScaleFactor ??
+            textScaler?.scale(1.0) ??
+            this.textScaler?.scale(1.0),
         textWidthBasis: textWidthBasis ?? this.textWidthBasis,
       ) as T;
     }
@@ -188,7 +190,7 @@ extension StyledText<T extends Text> on T {
         _elevationOpacityCurve(elevation) * opacityRatio;
 
     final Shadow shadow = Shadow(
-      color: color.withOpacity(calculatedOpacity),
+      color: color.withValues(alpha: calculatedOpacity),
       blurRadius: elevation,
       offset: Offset(sin(angle) * elevation, cos(angle) * elevation),
     );

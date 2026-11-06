@@ -1,58 +1,25 @@
 part of '../styled_widget.dart';
 
-// TODO: why extend text
+// Extends Text so that Styled.text(animate: true) still returns a Text and all
+// Text extensions (bold(), fontSize(), ...) keep working on it.
 class _StyledAnimatedTextContainer extends Text {
-  @override
-  final String data;
-  @override
-  final TextStyle? style;
-  @override
-  final StrutStyle? strutStyle;
-  @override
-  final TextAlign? textAlign;
-  @override
-  final TextDirection? textDirection;
-  @override
-  final Locale? locale;
-  @override
-  final bool? softWrap;
-  @override
-  final TextOverflow? overflow;
-  @override
-  final double? textScaleFactor;
-  @override
-  final int? maxLines;
-  @override
-  final String? semanticsLabel;
-  @override
-  final TextWidthBasis? textWidthBasis;
-
-  const _StyledAnimatedTextContainer(
-    this.data, {
-    this.locale,
-    this.maxLines,
-    this.overflow,
-    this.semanticsLabel,
-    this.softWrap,
-    this.strutStyle,
-    this.style,
-    this.textAlign,
-    this.textDirection,
-    this.textScaleFactor,
-    this.textWidthBasis,
+  _StyledAnimatedTextContainer(
+    String super.data, {
+    super.locale,
+    super.maxLines,
+    super.overflow,
+    super.semanticsLabel,
+    super.softWrap,
+    super.strutStyle,
+    super.style,
+    super.textAlign,
+    super.textDirection,
+    double? textScaleFactor,
+    super.textWidthBasis,
   }) : super(
-          data,
-          locale: locale,
-          maxLines: maxLines,
-          overflow: overflow,
-          semanticsLabel: semanticsLabel,
-          softWrap: softWrap,
-          strutStyle: strutStyle,
-          style: style,
-          textAlign: textAlign,
-          textDirection: textDirection,
-          textScaleFactor: textScaleFactor,
-          textWidthBasis: textWidthBasis,
+          textScaler: textScaleFactor == null
+              ? null
+              : TextScaler.linear(textScaleFactor),
         );
 
   @override
@@ -62,10 +29,8 @@ class _StyledAnimatedTextContainer extends Text {
     if (animation == null) {
       return super.build(context);
     }
-    // assert(
-    //     animation != null, 'You can`t animate without specifying an animation');
     return _AnimatedText(
-      data,
+      data ?? '',
       duration: animation.duration,
       curve: animation.curve,
       locale: locale,
@@ -77,7 +42,7 @@ class _StyledAnimatedTextContainer extends Text {
       style: style,
       textAlign: textAlign,
       textDirection: textDirection,
-      textScaleFactor: textScaleFactor,
+      textScaleFactor: textScaler?.scale(1.0),
       textWidthBasis: textWidthBasis,
     );
   }
@@ -200,7 +165,9 @@ class _AnimatedTextState extends AnimatedWidgetBaseState<_AnimatedText> {
         locale: widget.locale,
         softWrap: widget.softWrap,
         overflow: widget.overflow,
-        textScaleFactor: _textScaleFactor?.evaluate(animation),
+        textScaler: _textScaleFactor == null
+            ? null
+            : TextScaler.linear(_textScaleFactor!.evaluate(animation)),
         maxLines: _maxLines?.evaluate(animation),
         semanticsLabel: widget.semanticsLabel,
         textWidthBasis: widget.textWidthBasis,

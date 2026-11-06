@@ -122,7 +122,7 @@ extension StyledTextSpan<T extends TextSpan> on T {
         _elevationOpacityCurve(elevation) * opacityRatio;
 
     final Shadow shadow = Shadow(
-      color: color.withOpacity(calculatedOpacity),
+      color: color.withValues(alpha: calculatedOpacity),
       blurRadius: elevation,
       offset: Offset(sin(angle) * elevation, cos(angle) * elevation),
     );

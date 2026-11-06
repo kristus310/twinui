@@ -63,7 +63,9 @@ class Styled {
               style: style,
               textAlign: textAlign,
               textDirection: textDirection,
-              textScaleFactor: textScaleFactor,
+              textScaler: textScaleFactor == null
+                  ? null
+                  : TextScaler.linear(textScaleFactor),
               textWidthBasis: textWidthBasis,
             );
 
