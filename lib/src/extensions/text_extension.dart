@@ -2,6 +2,7 @@ part of '../../styled_widget.dart';
 
 extension StyledText<T extends Text> on T {
   T copyWith({
+    Key? key,
     String? data,
     TextStyle? style,
     StrutStyle? strutStyle,
@@ -11,39 +12,79 @@ extension StyledText<T extends Text> on T {
     bool? softWrap,
     TextOverflow? overflow,
     double? textScaleFactor,
+    TextScaler? textScaler,
     int? maxLines,
     String? semanticsLabel,
+    String? semanticsIdentifier,
     TextWidthBasis? textWidthBasis,
-  }) =>
-      (this is _StyledAnimatedTextContainer
-          ? _StyledAnimatedTextContainer(
-              data ?? this.data ?? "",
-              style: style ?? this.style,
-              strutStyle: strutStyle ?? this.strutStyle,
-              textAlign: textAlign ?? this.textAlign,
-              locale: locale ?? this.locale,
-              maxLines: maxLines ?? this.maxLines,
-              overflow: overflow ?? this.overflow,
-              semanticsLabel: semanticsLabel ?? this.semanticsLabel,
-              softWrap: softWrap ?? this.softWrap,
-              textDirection: textDirection ?? this.textDirection,
-              textScaleFactor: textScaleFactor ?? this.textScaleFactor,
-              textWidthBasis: textWidthBasis ?? this.textWidthBasis,
-            )
-          : Text(
-              data ?? this.data ?? "",
-              style: style ?? this.style,
-              strutStyle: strutStyle ?? this.strutStyle,
-              textAlign: textAlign ?? this.textAlign,
-              locale: locale ?? this.locale,
-              maxLines: maxLines ?? this.maxLines,
-              overflow: overflow ?? this.overflow,
-              semanticsLabel: semanticsLabel ?? this.semanticsLabel,
-              softWrap: softWrap ?? this.softWrap,
-              textDirection: textDirection ?? this.textDirection,
-              textScaleFactor: textScaleFactor ?? this.textScaleFactor,
-              textWidthBasis: textWidthBasis ?? this.textWidthBasis,
-            )) as T;
+    TextHeightBehavior? textHeightBehavior,
+    Color? selectionColor,
+  }) {
+    if (this is _StyledAnimatedTextContainer) {
+      // The animated container only supports a subset of Text's properties.
+      return _StyledAnimatedTextContainer(
+        data ?? this.data ?? '',
+        style: style ?? this.style,
+        strutStyle: strutStyle ?? this.strutStyle,
+        textAlign: textAlign ?? this.textAlign,
+        locale: locale ?? this.locale,
+        maxLines: maxLines ?? this.maxLines,
+        overflow: overflow ?? this.overflow,
+        semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+        softWrap: softWrap ?? this.softWrap,
+        textDirection: textDirection ?? this.textDirection,
+        textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+        textWidthBasis: textWidthBasis ?? this.textWidthBasis,
+      ) as T;
+    }
+
+    // ignore: deprecated_member_use
+    final double? oldFactor = this.textScaleFactor;
+    final TextScaler? scaler = textScaler ??
+        (textScaleFactor != null ? TextScaler.linear(textScaleFactor) : null) ??
+        this.textScaler ??
+        (oldFactor != null ? TextScaler.linear(oldFactor) : null);
+
+    final String? newData = data ?? this.data;
+    if (newData != null) {
+      return Text(
+        newData,
+        key: key ?? this.key,
+        style: style ?? this.style,
+        strutStyle: strutStyle ?? this.strutStyle,
+        textAlign: textAlign ?? this.textAlign,
+        textDirection: textDirection ?? this.textDirection,
+        locale: locale ?? this.locale,
+        softWrap: softWrap ?? this.softWrap,
+        overflow: overflow ?? this.overflow,
+        textScaler: scaler,
+        maxLines: maxLines ?? this.maxLines,
+        semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+        semanticsIdentifier: semanticsIdentifier ?? this.semanticsIdentifier,
+        textWidthBasis: textWidthBasis ?? this.textWidthBasis,
+        textHeightBehavior: textHeightBehavior ?? this.textHeightBehavior,
+        selectionColor: selectionColor ?? this.selectionColor,
+      ) as T;
+    }
+    return Text.rich(
+      this.textSpan!,
+      key: key ?? this.key,
+      style: style ?? this.style,
+      strutStyle: strutStyle ?? this.strutStyle,
+      textAlign: textAlign ?? this.textAlign,
+      textDirection: textDirection ?? this.textDirection,
+      locale: locale ?? this.locale,
+      softWrap: softWrap ?? this.softWrap,
+      overflow: overflow ?? this.overflow,
+      textScaler: scaler,
+      maxLines: maxLines ?? this.maxLines,
+      semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+      semanticsIdentifier: semanticsIdentifier ?? this.semanticsIdentifier,
+      textWidthBasis: textWidthBasis ?? this.textWidthBasis,
+      textHeightBehavior: textHeightBehavior ?? this.textHeightBehavior,
+      selectionColor: selectionColor ?? this.selectionColor,
+    ) as T;
+  }
 
   T textStyle(TextStyle style) => copyWith(
         style: (this.style ?? const TextStyle()).copyWith(
@@ -58,6 +99,9 @@ extension StyledText<T extends Text> on T {
           fontFamily: style.fontFamily,
           fontFamilyFallback: style.fontFamilyFallback,
           fontFeatures: style.fontFeatures,
+          fontVariations: style.fontVariations,
+          leadingDistribution: style.leadingDistribution,
+          overflow: style.overflow,
           fontSize: style.fontSize,
           fontStyle: style.fontStyle,
           fontWeight: style.fontWeight,

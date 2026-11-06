@@ -86,6 +86,7 @@ class Styled {
             )
           : Icon(
               icon,
+              key: key,
               color: color,
               size: size,
               semanticLabel: semanticLabel,

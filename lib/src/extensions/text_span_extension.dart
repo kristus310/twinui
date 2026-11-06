@@ -11,11 +11,17 @@ extension StyledTextSpan<T extends TextSpan> on T {
         children: children,
         style: style ?? this.style,
         recognizer: recognizer ?? this.recognizer,
+        mouseCursor: recognizer == null ? mouseCursor : null,
+        onEnter: onEnter,
+        onExit: onExit,
         semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+        semanticsIdentifier: semanticsIdentifier,
+        locale: locale,
+        spellOut: spellOut,
       ) as T;
 
   T textStyle(TextStyle style) => copyWith(
-        style: this.style?.copyWith(
+        style: (this.style ?? const TextStyle()).copyWith(
               background: style.background,
               backgroundColor: style.backgroundColor,
               color: style.color,
@@ -27,6 +33,9 @@ extension StyledTextSpan<T extends TextSpan> on T {
               fontFamily: style.fontFamily,
               fontFamilyFallback: style.fontFamilyFallback,
               fontFeatures: style.fontFeatures,
+              fontVariations: style.fontVariations,
+              leadingDistribution: style.leadingDistribution,
+              overflow: style.overflow,
               fontSize: style.fontSize,
               fontStyle: style.fontStyle,
               fontWeight: style.fontWeight,

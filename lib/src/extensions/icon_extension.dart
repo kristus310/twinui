@@ -8,6 +8,7 @@ extension StyledIcon<T extends Icon> on T {
     TextDirection? textDirection,
   }) =>
       (this is _StyledAnimatedIconContainer
+          // The animated container only supports a subset of Icon's properties.
           ? _StyledAnimatedIconContainer(
               icon,
               color: color ?? this.color,
@@ -17,10 +18,19 @@ extension StyledIcon<T extends Icon> on T {
             )
           : Icon(
               icon,
-              color: color ?? this.color,
+              key: key,
               size: size ?? this.size,
+              fill: fill,
+              weight: weight,
+              grade: grade,
+              opticalSize: opticalSize,
+              color: color ?? this.color,
+              shadows: shadows,
               semanticLabel: semanticLabel ?? this.semanticLabel,
               textDirection: textDirection ?? this.textDirection,
+              applyTextScaling: applyTextScaling,
+              blendMode: blendMode,
+              fontWeight: fontWeight,
             )) as T;
 
   T iconSize(double size) => copyWith(size: size);
