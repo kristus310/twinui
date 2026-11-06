@@ -4,7 +4,7 @@ part of '../styled_widget.dart';
 // Text extensions (bold(), fontSize(), ...) keep working on it.
 class _StyledAnimatedTextContainer extends Text {
   _StyledAnimatedTextContainer(
-    String super.data, {
+    super.data, {
     super.locale,
     super.maxLines,
     super.overflow,
