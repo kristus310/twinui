@@ -23,7 +23,7 @@ extension StyledIcon<T extends Icon> on T {
               textDirection: textDirection ?? this.textDirection,
             )) as T;
 
-  T iconSize(double size) => this.copyWith(size: size);
+  T iconSize(double size) => copyWith(size: size);
 
-  T iconColor(Color color) => this.copyWith(color: color);
+  T iconColor(Color color) => copyWith(color: color);
 }

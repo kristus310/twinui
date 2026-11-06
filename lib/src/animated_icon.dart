@@ -54,18 +54,14 @@ class _AnimatedIcon extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   const _AnimatedIcon(
     this.icon, {
-    Key? key,
+    super.key,
     this.color,
     this.semanticLabel,
     this.size,
     this.textDirection,
-    Curve curve = Curves.linear,
-    required Duration duration,
-  }) : super(
-          key: key,
-          curve: curve,
-          duration: duration,
-        );
+    super.curve,
+    required super.duration,
+  });
 
   final IconData? icon;
   final double? size;

@@ -1,4 +1,4 @@
-library styled_widget;
+library;
 
 import 'dart:math';
 import 'dart:ui';

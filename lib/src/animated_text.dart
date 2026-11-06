@@ -89,7 +89,7 @@ class _AnimatedText extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   const _AnimatedText(
     this.data, {
-    Key? key,
+    super.key,
     this.locale,
     this.maxLines,
     this.overflow,
@@ -101,10 +101,10 @@ class _AnimatedText extends ImplicitlyAnimatedWidget {
     this.textDirection,
     this.textScaleFactor,
     this.textWidthBasis,
-    Curve curve = Curves.linear,
-    required Duration duration,
-    VoidCallback? onEnd,
-  }) : super(key: key, curve: curve, duration: duration, onEnd: onEnd);
+    super.curve,
+    required super.duration,
+    super.onEnd,
+  });
 
   final String data;
   final TextStyle? style;
