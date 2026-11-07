@@ -68,13 +68,23 @@ flutter run -t path/to/twinui/example/main.dart
 
 ## Use it in an app
 
-In the app's `pubspec.yaml` (path while developing, pinned commit for
-releases):
+In the app's `pubspec.yaml`, use a path while developing:
 
 ```yaml
 dependencies:
   twinui:
     path: ../twinui
+```
+
+For releases, pin an exact commit (a tag can be moved later, a commit hash
+cannot):
+
+```yaml
+dependencies:
+  twinui:
+    git:
+      url: https://github.com/kristus310/twinui.git
+      ref: <full commit hash>
 ```
 
 Commit the app's `pubspec.lock`.
