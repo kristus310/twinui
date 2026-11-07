@@ -1,6 +1,7 @@
 name: twinui
 description: Reviewed, security-audited local fork of styled_widget. Chainable widget extension methods for Flutter.
 version: 0.1.0
+repository: https://github.com/kristus310/twinui
 publish_to: none
 
 environment:
