@@ -1,5 +1,7 @@
 # twinui
 
+[![check](https://github.com/kristus310/twinui/actions/workflows/check.yml/badge.svg)](https://github.com/kristus310/twinui/actions/workflows/check.yml)
+
 A reviewed, security-checked local fork of
 [styled_widget](https://github.com/ReinBentdal/styled_widget) (MIT).
 It adds chainable extension methods to Flutter widgets. It never replaces
