@@ -17,6 +17,55 @@ Text('Hello')
     .onTap(() => print('tapped'))
 ```
 
+## Before and after
+
+Plain Flutter:
+
+```dart
+Container(
+  decoration: BoxDecoration(
+    color: Colors.indigo,
+    borderRadius: BorderRadius.circular(12),
+    boxShadow: const [BoxShadow(blurRadius: 6, offset: Offset(0, 3))],
+  ),
+  child: const Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    child: Text(
+      'Hello',
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+    ),
+  ),
+)
+```
+
+With twinui (the same widget, read from the inside out):
+
+```dart
+const Text('Hello')
+    .bold()
+    .fontSize(18)
+    .textColor(Colors.white)
+    .padding(horizontal: 20, vertical: 12)
+    .decorated(
+      color: Colors.indigo,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: const [BoxShadow(blurRadius: 6, offset: Offset(0, 3))],
+    )
+```
+
+`example/before_after.dart` has five such pairs (label, tappable row, spaced
+column, animated fade, rounded avatar), and
+`test/examples_equivalence_test.dart` checks that each pair lays out the same.
+To see them side by side, run the example from any app that depends on twinui:
+
+```bash
+flutter run -t path/to/twinui/example/main.dart
+```
+
 ## Use it in an app
 
 In the app's `pubspec.yaml` (path while developing, pinned commit for
@@ -43,6 +92,9 @@ Commit the app's `pubspec.lock`.
   own `alignment`. Calling the extension on those types does not compile (a
   loud failure, never a silent one). Wrap with `Styled.widget(child: ...)` or
   use a different widget.
+  `Text` also has its own `textDirection`, `textWidthBasis` and `overflow`,
+  so those twinui methods cannot be called with dot syntax on a `Text`: pass
+  them to `Text(...)` directly, or call `StyledText(text).textDirection(...)`.
 - **`backgroundBlendMode()` needs a `color:` or `gradient:`** (Flutter
   requires one for a blend mode to do anything). Without it, debug builds
   assert.

@@ -35,6 +35,7 @@ The original code was imported unchanged in its own commit, so
   `onDoubleTapCancel`, `onLongPressDown`, `onLongPressCancel`,
   `supportedDevices`.
 - `TwinuiExtras`: `visibleIf()` and `onTap()` (own extensions).
+- `example/`: five before/after pairs, with a test that checks each pair lays out the same.
 - `backgroundBlendMode()`: optional `color:` and `gradient:`, so it can work.
 
 ### Changed
@@ -48,4 +49,7 @@ The original code was imported unchanged in its own commit, so
   one); without it debug builds assert.
 - Animated `Styled.text` / `Styled.icon` support only a subset of the
   properties of `Text` / `Icon`.
+- On a `Text`, `textDirection()`, `textWidthBasis()` and `overflow()` are shadowed by
+  `Text`'s own fields, so dot syntax does not reach them (use `StyledText(text).x(...)`
+  or the `Text` constructor).
 - Chained calls cannot be `const`.
