@@ -46,6 +46,13 @@ Commit the app's `pubspec.lock`.
 - **`backgroundBlendMode()` needs a `color:` or `gradient:`** (Flutter
   requires one for a blend mode to do anything). Without it, debug builds
   assert.
+- **Right-click on the web:** the browser's own context menu can swallow
+  `onSecondaryTap`. In testing, right-clicks were only counted some of
+  the time until the menu was disabled. In your app's `main()`, add
+  `if (kIsWeb) BrowserContextMenu.disableContextMenu();`
+  (`kIsWeb` is in `package:flutter/foundation.dart`,
+  `BrowserContextMenu` in `package:flutter/services.dart`). This hides
+  the browser menu for the whole app.
 - Chained calls cannot be `const`, and they do not make the widget tree
   shallower; they only make the code read flatter.
 
